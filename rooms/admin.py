@@ -1,12 +1,15 @@
 from django.contrib import admin
 from django.utils.html import mark_safe
+from django.http import HttpResponse
+
+from import_export.admin import ExportActionModelAdmin, ImportExportMixin, ImportMixin
 from . import models
 
 
 # Register your models here.
-@admin.register(models.RoomType, models.Amenity, models.Facility, models.HouseRule)
+@admin.register(models.RoomType, models.Amenity, models.Facility,
+                models.HouseRule)
 class ItemAdmin(admin.ModelAdmin):
-
     """아이템 어드민 정의"""
 
     list_display = ("name", "used_by")
@@ -24,23 +27,56 @@ class PhotoInline(admin.TabularInline):  # StackedInline 도 있다
 
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
-
     """룸 어드민 정의"""
 
-    inlines = (PhotoInline,)
+    inlines = (PhotoInline, )
 
     fieldsets = (
-        ("기본정보", {"fields": ("name", "description", "country", "city", "address", "price")},),
-        ("시간", {"fields": ("check_in", "check_out", "instant_book")},),
+        (
+            "기본정보",
+            {
+                "fields":
+                ("name", "description", "country", "city", "address", "price")
+            },
+        ),
+        (
+            "시간",
+            {
+                "fields": ("check_in", "check_out", "instant_book")
+            },
+        ),
         (
             "이용정보",
-            {"classes": ("collapse",), "fields": ("amenities", "facilities", "house_rules",)},
+            {
+                "classes": ("collapse", ),
+                "fields": (
+                    "amenities",
+                    "facilities",
+                    "house_rules",
+                )
+            },
         ),
         # 클래스를 추가함으로서 옵션을 추가할수 있다
-        ("객실정보", {"fields": ("beds", "bedrooms", "baths", "guests",)},),
-        ("호스트", {"fields": ("host",)},),
+        (
+            "객실정보",
+            {
+                "fields": (
+                    "beds",
+                    "bedrooms",
+                    "baths",
+                    "guests",
+                )
+            },
+        ),
+        (
+            "호스트",
+            {
+                "fields": ("host", )
+            },
+        ),
         # ("예약상황", {"fields": ("reservations",)},),
     )
+    actions = ['download_csv']
 
     list_display = (
         "name",
@@ -62,7 +98,50 @@ class RoomAdmin(admin.ModelAdmin):
         # "reservations",
     )
 
-    ordering = ("id",)
+    def download_csv(self, request, queryset):
+        import csv
+        f = open('some.csv', 'w')
+        writer = csv.writer(f)
+        writer.writerow([
+            "name",
+            "country",
+            "city",
+            "price",
+            "guests",
+            "beds",
+            "bedrooms",
+            "baths",
+            "check_in",
+            "check_out",
+            "instant_book",
+            "host",
+            "room_type",
+        ])
+        for s in queryset:
+            writer.writerow([
+                s.name,
+                s.country,
+                s.city,
+                s.price,
+                s.guests,
+                s.beds,
+                s.bedrooms,
+                s.baths,
+                s.check_in,
+                s.check_out,
+                s.instant_book,
+                s.host,
+                s.room_type,
+            ])
+        f.close()
+        f = open('some.csv', 'r')
+        response = HttpResponse(f, content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=room_admin.csv'
+        return response
+
+    download_csv.short_description = "csv 로 다운로드"
+
+    ordering = ("id", )
     # 모델의 정렬 순서를 지정하며 여러 개를 지정할 경우 필드 이름을 리스트로 나열한다.
     # 기본값은 오름차순으로 정렬하고 -를 붙이면 내림차순으로 정렬한다.
 
@@ -80,7 +159,7 @@ class RoomAdmin(admin.ModelAdmin):
         "country",
     )
 
-    raw_id_fields = ("host",)
+    raw_id_fields = ("host", )
 
     search_fields = ("city", "host__username")
     # "host__username" 외래키로 가져온 호스트의 유저네임 속성으로 검색을 한다
@@ -97,6 +176,7 @@ class RoomAdmin(admin.ModelAdmin):
         "facilities",
         "house_rules",
     )
+
     # 다대다 관계에서 작동한다
 
     def save_model(self, request, obj, form, change):
@@ -113,6 +193,7 @@ class RoomAdmin(admin.ModelAdmin):
         return str(obj.amenities.all().count())
 
     count_amenities.short_description = "시설 갯수"
+
     # short_description 으로 어드민에서 표시되는 column 을 바꿔준다
 
     def count_photos(self, obj):
@@ -125,7 +206,6 @@ class RoomAdmin(admin.ModelAdmin):
 
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
-
     """포토 어드민 정의"""
 
     list_display = ("__str__", "get_thumbnail")
@@ -136,4 +216,3 @@ class PhotoAdmin(admin.ModelAdmin):
         # from django.utils.html import mark_safe
 
     get_thumbnail.short_description = "미리보기"
-

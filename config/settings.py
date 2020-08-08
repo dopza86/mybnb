@@ -14,10 +14,8 @@ import os
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -29,7 +27,6 @@ SECRET_KEY = "_^#8(00oxq8#ydz#sn+t5b-2_%q2qmppqlz&aip4m4u-7pqxkm"
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -54,9 +51,9 @@ PROJECT_APPS = [
     "reservations.apps.ReservationsConfig",
     "lists.apps.ListsConfig",
     "conversations.apps.ConversationsConfig",
+    'import_export',
 ]  # 기존에 models.Model을 상속 받아 사용할때는 그냥 users를 사용했으나 AbstracrtUser를 상속받아 사용하니까
 # users.apps.UsersConfig 를 사용하며 AUTH_USER_MODEL = "users.User" 를 통해 모델을 참조할수 있다
-
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
@@ -71,7 +68,6 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
     # 미들웨어를 설치해야 세션을 가져와서 번역을 실행한다
 ]
-
 
 ROOT_URLCONF = "config.urls"
 
@@ -93,7 +89,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -104,17 +99,27 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",},
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME":
+        "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME":
+        "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME":
+        "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME":
+        "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -129,11 +134,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 AUTH_USER_MODEL = "users.User"  # 장고 유저 모델이 기본값이 아니라 유저모델에 오버라이딩한 users.User 을 유저모델 기본값으로 사용
@@ -175,10 +181,9 @@ LOGIN_URL = "/users/login/"
 
 # Locale
 
-LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"), )
 LANGUAGES = [
     ("en", _("English")),
     ("ko", _("Korean")),
     ("cn", _("Chinese")),
 ]
-
