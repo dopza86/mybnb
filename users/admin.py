@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from import_export.admin import ImportExportActionModelAdmin
+
 from django.http import HttpResponse
 
 from . import models
@@ -15,7 +15,7 @@ class RoomInline(admin.TabularInline):
 
 
 @admin.register(models.User)
-class CustomUserAdmin(UserAdmin, ImportExportActionModelAdmin):
+class CustomUserAdmin(UserAdmin):
     """Custom User Admin"""
 
     inlines = (RoomInline, )
