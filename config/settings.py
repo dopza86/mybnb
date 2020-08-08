@@ -55,7 +55,6 @@ PROJECT_APPS = [
     "reservations.apps.ReservationsConfig",
     "lists.apps.ListsConfig",
     "conversations.apps.ConversationsConfig",
-    'import_export',
 ]  # 기존에 models.Model을 상속 받아 사용할때는 그냥 users를 사용했으나 AbstracrtUser를 상속받아 사용하니까
 # users.apps.UsersConfig 를 사용하며 AUTH_USER_MODEL = "users.User" 를 통해 모델을 참조할수 있다
 
