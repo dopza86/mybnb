@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.utils.html import mark_safe
 from django.http import HttpResponse
 
-from import_export.admin import ExportActionModelAdmin, ImportExportMixin, ImportMixin
 from . import models
 
 
