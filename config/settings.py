@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from django.conf import settings
+import django_heroku
 from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,7 +26,10 @@ SECRET_KEY = "_^#8(00oxq8#ydz#sn+t5b-2_%q2qmppqlz&aip4m4u-7pqxkm"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 
 # Application definition
 
