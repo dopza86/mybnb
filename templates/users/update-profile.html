@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+프로필 수정
+{% endblock page_title %}
+
+{% block search-bar %}
+
+{% endblock search-bar %}
+
+<!-- 베이스 탬플릿에 있는 서치바를 숨겨준다 -->
+
+{% block content %}
+
+<div class="container xl:w-1/4 lg:w-5/12 md:w-1/2  mx-auto my-10 flex flex-col items-center border  border-gray-400 p-6">
+  
+    {% include 'mixins/auth/auth_form.html' with form=form cta="프로필 업데이트" %}
+    
+    {% if object.login_method == "email" %}
+    <div class="mt-5 ">
+        <a href="{% url 'users:password' %}" class="font-medium">비밀번호 변경</a>
+    </div>
+    {% endif %}
+    
+</div>
+{% endblock content %}
+
+<!-- 플레이스 홀더를 입력하려면 직접 폼을 커스텀해야한다  -->

@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-27 16:00+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\config\settings.py:179
+msgid "English"
+msgstr "英语"
+
+#: .\config\settings.py:180
+msgid "Korean"
+msgstr "韩国语"
+
+#: .\config\settings.py:181
+msgid "Chinese"
+msgstr "汉语"
+
+#: .\templates\base.html:27
+msgid "도시 이름으로 찾기"
+msgstr "按城市 搜索"
+
+#: .\templates\partials\footer.html:5
+msgid "무단 복제를 금지합니다."
+msgstr "禁止违法复制"
+
+#: .\templates\partials\footer.html:7
+msgid "이 사이트의 모든 저작권은 MYbnb 가 소유하고 있습니다 "
+msgstr "本网站的所有的版权属于MYbnb"
+
+#: .\templates\rooms\room_list.html:31
+#, python-format
+msgid "page %(current_page)s of %(total_pages)s"
+msgstr " %(current_page)s页 of %(total_pages)s页"
+
+#: .\users\mixins.py:13
+msgid "접근할수 없습니다"
+msgstr "您要访问的页面不存在"
+
+#: .\users\models.py:22
+msgid "남자"
+msgstr "男"
+
+#: .\users\models.py:23
+msgid "여자"
+msgstr "女"
+
+#: .\users\models.py:24
+msgid "기타"
+msgstr "其他"
+
+#: .\users\models.py:32
+msgid "한국어"
+msgstr "韩国语"
+
+#: .\users\models.py:33
+msgid "english"
+msgstr "英语"
+
+#: .\users\models.py:34
+msgid "汉语"
+msgstr "汉语"
+
+#: .\users\models.py:62
+msgid "gender"
+msgstr "性别"
+
+#: .\users\models.py:63
+msgid "bio"
+msgstr "说明"
+
+#: .\users\models.py:64
+msgid "birthdate"
+msgstr "生日"
+
+#: .\users\models.py:66
+msgid "language"
+msgstr "语言"
+
+#: .\users\models.py:95
+msgid "마이비앤비 가입 인증메일 입니다"
+msgstr "Mybnb 认证信息"

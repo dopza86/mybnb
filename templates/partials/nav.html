@@ -1,0 +1,25 @@
+<ul class="flex items-center text-sm font-bold h-full">
+    {% if user.is_authenticated %}
+    <!-- 장고의 컨텍스트 프로세서가 작동하여 쿠키를 가져와 유저를 찾고 그걸 템플릿에 자동으로 입력해줌 -->
+    <li class="nav_link">
+        <a href="{% url 'users:switch-hosting' %}">
+            {% if request.session.is_hosting %}
+                호스팅 종료
+            {% else %}
+                호스팅 시작
+            {% endif %}
+
+        </a>
+    </li>
+   
+    {% if request.session.is_hosting %}
+    <li class="nav_link"><a href="{% url 'rooms:create' %}">객실 등록</a></li>
+    {% endif %}
+    <li class="nav_link"><a href="{% url 'lists:see-favs' %}">관심목록 ({{user.lists.rooms.count}})</a></li>
+    <li class="nav_link"><a href="{{user.get_absolute_url}}">내정보</a></li>
+    <li class="nav_link"><a href="{% url 'users:logout' %}">로그아웃</a></li>
+    {% else %}
+    <li class="nav_link"><a href="{% url 'users:login' %}">로그인</a></li>
+    <li class="nav_link"><a href="{% url 'users:signup' %}">회원가입</a></li>
+    {% endif %}
+</ul>

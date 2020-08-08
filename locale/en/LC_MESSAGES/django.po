@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-27 14:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\config\settings.py:179
+msgid "English"
+msgstr "English"
+
+#: .\config\settings.py:180
+msgid "Korean"
+msgstr "Korean"
+
+#: .\config\settings.py:181
+msgid "Chinese"
+msgstr "Chinese"
+
+#: .\templates\base.html:27
+msgid "도시 이름으로 찾기"
+msgstr "Search By City"
+
+#: .\templates\partials\footer.html:5
+msgid "무단 복제를 금지합니다."
+msgstr "Unauthorized reproduction is prohibited"
+
+#: .\templates\partials\footer.html:7
+msgid "이 사이트의 모든 저작권은 MYbnb 가 소유하고 있습니다 "
+msgstr "All copyrights of this site are owned by MYbnb"
+
+#: .\templates\rooms\room_list.html:31
+#, python-format
+msgid "page %(current_page)s of %(total_pages)s"
+msgstr "page %(current_page)s of %(total_pages)s"

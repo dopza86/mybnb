@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+사진정보 수정
+{% endblock page_title %}
+
+{% block search-bar %}
+
+{% endblock search-bar %}
+
+<!-- 베이스 탬플릿에 있는 서치바를 숨겨준다 -->
+
+{% block content %}
+
+<div class="container lg:w-5/12 md:w-1/2 xl:w-1/4 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
+  
+    {% include 'mixins/room/room_form.html' with form=form cta="사진정보 수정" %}
+
+</div>
+{% endblock content %}
+
+<!-- 플레이스 홀더를 입력하려면 직접 폼을 커스텀해야한다  -->

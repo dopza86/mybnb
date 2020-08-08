@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    {{user_obj.username}}의 정보
+{% endblock page_title %}
+
+
+
+{% block content %}
+
+
+
+<div class="min-h-75vh">
+    <div class="container xl:w-1/4 lg:w-5/12 md:w-1/2  mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
+        {% include "mixins/user_avatar.html" with user=user_obj %}
+        
+            <div class="flex items-center">
+                <span class="text-3xl mt-1">{{user_obj.username}}</span>
+            </div>
+            {% if user_obj.superhost %}
+            <div class="flex items-center">
+                <span class="mr-2 my-2 font-bold text-xs text-blue-600 border border-blue-600 rounded-md py-1 px-1">
+                    슈퍼호스트</span>
+            </div>
+    
+            {% endif %}
+        
+    
+        <span class="text-lg mb-5">{{user_obj.bio}}</span>
+        
+        {% if user == user_obj %}
+        <a href="{% url 'users:update' %}" class="btn-link">프로필 수정</a>
+        {% endif %}
+        
+    
+    </div>
+    {% if user_obj.rooms.count > 0 %}
+    <h3 class="mb-12 text-2xl text-center">{{user_obj.username}}님이 운영중인 객실</h3>
+    <div class="container mx-auto pb-10 ">
+        <div class="flex flex-wrap -mx-40 mb-10">
+            {% for room in user_obj.rooms.all  %}
+                {% include 'mixins/room_card.html' with room=room %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+<form method="POST" class="w-full" enctype="multipart/form-data">
+    <!-- 인코딩 타입을 설정하지 않으면 백엔드에서 보낸 파일을 업데이트 할수없다 -->
+        {% csrf_token %}
+    
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <span class="text-red-700 font-medium text-sm">{{error}}</span> 
+            {% endfor %}
+        {% endif %}
+    
+       
+        {% for field in form %}
+            {% include 'mixins/room/room_input.html' with field=field %}
+        {% endfor %}
+    
+        <button class="btn bg-red-500 text-white">{{cta}}</button>
+    </form> 

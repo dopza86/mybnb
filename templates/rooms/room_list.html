@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block page_name %}
+HOME
+{% endblock page_name %}
+
+{% block content %}
+
+    <div class="container mx-auto pb-10">
+
+        <div class="rounded-xl bg-gray-800 -mx-40 h-50vh mt-32 mb-24 bg-cover bg-center" style="background-image:url(https://images.unsplash.com/photo-1563286094-ad5e870b309c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1401&q=80)"></div>
+        
+        <div class="flex flex-wrap -mx-40 mb-10">
+        {% for room in rooms  %}
+            {% include "mixins/room_card.html" with room=room %}
+        {% endfor %}
+        </div>
+
+        
+        <div class="flex items-center justify-center">
+            {% if page_obj.has_previous %}
+            <!-- page_obj 를 사용한 이유는 장고 리스트뷰 문서를 참조하자 -->
+            <!-- 장고 템플릿에서는 함수를 previous_page_number() 로 호출하지 않는다 
+            previous_page_number 로 호출한다  -->
+            <a href="?page={{page_obj.previous_page_number}}">
+                <i class="fas fa-arrow-left fa-lg text-teal-500"></i>
+            </a>
+            {% endif %}
+            
+            <span class="mx-3 font-medium text-lg">
+                {% blocktrans with current_page=page_obj.number total_pages=page_obj.paginator.num_pages %}page {{current_page}} of {{total_pages}}{% endblocktrans %}
+            </span>
+            
+            {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">
+                <i class="fas fa-arrow-right fa-lg text-teal-500"></i>
+            </a>
+            {% endif %}
+        </div>
+        
+        <!-- https://docs.djangoproject.com/en/3.0/ref/paginator/#django.core.paginator.Paginator 참조 하여 메서드와 속성 사용 -->
+    </div>
+
+{% endblock %}

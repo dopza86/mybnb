@@ -1,0 +1,29 @@
+{% load i18n %}
+<footer class="container mx-auto text-center py-10 border-t font-medium text-gray-500">
+    <div class="flex flex-col">
+        <span>
+            {% trans "무단 복제를 금지합니다." %}
+        </span>
+        <span>&copy; 2020 MYbnb , Inc. {% trans '이 사이트의 모든 저작권은 MYbnb 가 소유하고 있습니다 ' %}</span>
+    </div>
+    <div class="mt-10 flex">
+        {% get_current_language as LANGUAGE_CODE %}
+        <!-- https://docs.djangoproject.com/en/3.0/topics/i18n/translation/ 참조 -->
+        
+        <select class="w-1/5 h-8" id="js-lang">
+            <option value="ko""
+                {% if LANGUAGE_CODE == 'ko' %}
+                selected
+                {% endif %}
+            >한국어</option>
+            <option value="en"
+                {% if LANGUAGE_CODE == 'en' %}
+                    selected
+                {% endif %}
+            >English</option>
+            <option value="cn""
+            {% if LANGUAGE_CODE == 'cn' %}
+            selected
+            {% endif %}
+            >汉语</option>
+</footer>
