@@ -109,25 +109,13 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "HOST": "ec2-35-175-155-248.compute-1.amazonaws.com",
-            "NAME": "d1i14il804mu1s",
-            "USER": "paeitpsbwzvcgk",
-            "PASSWORD":
-            "d6bdd23adb7a3c2a8054995e498ee715a46ab0dda979c958d60a656e9d74ff52",
+            "HOST": os.environ.get("RDS_HOST"),
+            "NAME": os.environ.get("RDS_NAME"),
+            "USER": os.environ.get("RDS_USER"),
+            "PASSWORD": os.environ.get("RDS_PASSWORD"),
             "PORT": "5432",
         }
     }
-
-    # DATABASES = {
-    #     "default": {
-    #         "ENGINE": "django.db.backends.postgresql",
-    #         "HOST": os.environ.get("RDS_HOST"),
-    #         "NAME": os.environ.get("RDS_NAME"),
-    #         "USER": os.environ.get("RDS_USER"),
-    #         "PASSWORD": os.environ.get("RDS_PASSWORD"),
-    #         "PORT": "5432",
-    #     }
-    # }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
