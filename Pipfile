@@ -16,6 +16,7 @@ dj-database-url = "*"
 psycopg2-binary = "*"
 pipenv-to-requirements = "*"
 pillow = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
