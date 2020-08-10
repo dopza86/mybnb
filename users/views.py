@@ -26,6 +26,7 @@ class LoginView(mixins.LoggedOutOnlyView, FormView):
 
     template_name = "users/login.html"
     form_class = forms.LoginForm
+
     # success_url = reverse_lazy("core:home")
 
     def form_valid(self, form):
@@ -100,7 +101,7 @@ def complete_verification(request, key):
 
 def github_login(request):
     client_id = os.environ.get("GH_ID")
-    redirect_uri = "http://127.0.0.1:8000/users/login/github/callback"
+    redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/github/callback"
     return redirect(
         f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=read:user"
     )
@@ -150,15 +151,19 @@ def github_callback(request):
                     try:
                         user = models.User.objects.get(username=name)
                         if user.login_method == models.User.LOGIN_EMAIL:
-                            raise GithubException(f"이미 가입된 회원입니다 이메일과 비밀번호 입력을 통해 로그인을 해주세요 ")
+                            raise GithubException(
+                                f"이미 가입된 회원입니다 이메일과 비밀번호 입력을 통해 로그인을 해주세요 ")
                         if user.login_method == models.User.LOGIN_KAKAO:
-                            raise GithubException(f"이미 가입된 회원입니다 카카오로 로그인을 해주세요 ")
+                            raise GithubException(
+                                f"이미 가입된 회원입니다 카카오로 로그인을 해주세요 ")
                         if user.login_method == models.User.LOGIN_GOOGLE:
-                            raise GithubException(f"이미 가입된 회원입니다 구글로 로그인을 해주세요 ")
+                            raise GithubException(
+                                f"이미 가입된 회원입니다 구글로 로그인을 해주세요 ")
 
                     except models.User.DoesNotExist:
                         user = models.User.objects.create(
-                            username=name, login_method=models.User.LOGIN_GITHUB,
+                            username=name,
+                            login_method=models.User.LOGIN_GITHUB,
                         )
                         user.set_unusable_password()
                         user.save()
@@ -177,7 +182,7 @@ def github_callback(request):
 
 def kakao_login(request):
     app_key = os.environ.get("KAKAO_KEY")
-    redirect_uri = "http://127.0.0.1:8000/users/login/kakao/callback"
+    redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/kakao/callback"
     return redirect(
         f"https://kauth.kakao.com/oauth/authorize?client_id={app_key}&redirect_uri={redirect_uri}&response_type=code"
     )
@@ -191,14 +196,15 @@ def kakao_callback(request):
     try:
         app_key = os.environ.get("KAKAO_KEY")
         code = request.GET.get("code")
-        redirect_uri = "http://127.0.0.1:8000/users/login/kakao/callback"
+        redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/kakao/callback"
         post_data = {
             "grant_type": "authorization_code",
             "client_id": app_key,
             "redirect_uri": redirect_uri,
             "code": code,
         }
-        token_request = requests.post(f"https://kauth.kakao.com/oauth/token", data=post_data)
+        token_request = requests.post(f"https://kauth.kakao.com/oauth/token",
+                                      data=post_data)
         token_json = token_request.json()
         error = token_json.get("error", None)
 
@@ -225,14 +231,17 @@ def kakao_callback(request):
             try:
                 user = models.User.objects.get(username=nickname)
                 if user.login_method == models.User.LOGIN_EMAIL:
-                    raise KakaoException(f"이미 가입된 회원입니다 이메일과 비밀번호 입력을 통해 로그인을 해주세요 ")
+                    raise KakaoException(
+                        f"이미 가입된 회원입니다 이메일과 비밀번호 입력을 통해 로그인을 해주세요 ")
                 if user.login_method == models.User.LOGIN_GITHUB:
                     raise KakaoException(f"이미 가입된 회원입니다 깃허브로 로그인을 해주세요 ")
                 if user.login_method == models.User.LOGIN_GOOGLE:
                     raise KakaoException(f"이미 가입된 회원입니다 구글로 로그인을 해주세요 ")
             except models.User.DoesNotExist:
                 user = models.User.objects.create(
-                    username=nickname, email=email, login_method=models.User.LOGIN_KAKAO,
+                    username=nickname,
+                    email=email,
+                    login_method=models.User.LOGIN_KAKAO,
                 )
                 user.set_unusable_password()
                 user.save()
@@ -240,7 +249,8 @@ def kakao_callback(request):
                 if profile_image is not None:
                     photo_request = requests.get(profile_image)
 
-                    user.avatar.save(f"{nickname}-사진", ContentFile(photo_request.content))
+                    user.avatar.save(f"{nickname}-사진",
+                                     ContentFile(photo_request.content))
             login(request, user)
             messages.success(request, f"{user.username} 님 반갑습니다")
             return redirect(reverse("core:home"))
@@ -251,7 +261,7 @@ def kakao_callback(request):
 
 def google_login(reguest):
     client_id = os.environ.get("GOOGLE_ID")
-    redirect_uri = "http://127.0.0.1:8000/users/login/google/callback"
+    redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/google/callback"
     return redirect(
         f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline"
     )
@@ -266,7 +276,7 @@ def google_callback(request):
         client_id = os.environ.get("GOOGLE_ID")
         client_secret = os.environ.get("GOOGLE_SECRET")
         code = request.GET.get("code")
-        redirect_uri = "http://127.0.0.1:8000/users/login/google/callback"
+        redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/google/callback"
         post_data = {
             "grant_type": "authorization_code",
             "client_id": client_id,
@@ -274,7 +284,8 @@ def google_callback(request):
             "redirect_uri": redirect_uri,
             "code": code,
         }
-        token_request = requests.post(f"https://oauth2.googleapis.com/token", data=post_data)
+        token_request = requests.post(f"https://oauth2.googleapis.com/token",
+                                      data=post_data)
         token_json = token_request.json()
         print(token_json)
 
@@ -297,7 +308,8 @@ def google_callback(request):
 
                 if user.login_method != models.User.LOGIN_GOOGLE:
                     if user.login_method == models.User.LOGIN_EMAIL:
-                        raise GoogleException(f"이미 가입된 회원입니다 이메일과 비밀번호 입력을 통해 로그인을 해주세요 ")
+                        raise GoogleException(
+                            f"이미 가입된 회원입니다 이메일과 비밀번호 입력을 통해 로그인을 해주세요 ")
                     if user.login_method == models.User.LOGIN_GITHUB:
                         raise GoogleException(f"이미 가입된 회원입니다 깃허브로 로그인을 해주세요 ")
                     if user.login_method == models.User.LOGIN_KAKAO:
@@ -316,7 +328,8 @@ def google_callback(request):
                 if profile_image is not None:
                     photo_request = requests.get(profile_image)
 
-                    user.avatar.save(f"{email}-사진", ContentFile(photo_request.content))
+                    user.avatar.save(f"{email}-사진",
+                                     ContentFile(photo_request.content))
             login(request, user)
             messages.success(request, f"{user.username} 님 반갑습니다")
             return redirect(reverse("core:home"))
@@ -341,7 +354,8 @@ class UserProfileView(DetailView):
     #     return context
 
 
-class UpdateProfileView(mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView):
+class UpdateProfileView(mixins.LoggedInOnlyView, SuccessMessageMixin,
+                        UpdateView):
     model = models.User
     template_name = "users/update-profile.html"
     fields = (
@@ -378,7 +392,8 @@ class UpdateProfileView(mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView
     # 폼뷰 사용시  입력한 이메일을 유저네임으로 변경하는 메쏘드
 
 
-class UpdatePasswowdView(mixins.LoggedInOnlyView, mixins.EmailLoginOnlyView, PasswordChangeView):
+class UpdatePasswowdView(mixins.LoggedInOnlyView, mixins.EmailLoginOnlyView,
+                         PasswordChangeView):
 
     template_name = "users/update-password.html"
 
@@ -386,7 +401,9 @@ class UpdatePasswowdView(mixins.LoggedInOnlyView, mixins.EmailLoginOnlyView, Pas
         form = super().get_form(form_class=form_class)
         form.fields["old_password"].widget.attrs = {"placeholder": "현재 비밀번호"}
         form.fields["new_password1"].widget.attrs = {"placeholder": "새로운 비밀번호"}
-        form.fields["new_password2"].widget.attrs = {"placeholder": "새로운 비밀번호 확인"}
+        form.fields["new_password2"].widget.attrs = {
+            "placeholder": "새로운 비밀번호 확인"
+        }
         return form
         # form.fields["old_password"].label = "이전 비밀번호"
         # form.fields["new_password1"].label = "새로운 비밀번호"
