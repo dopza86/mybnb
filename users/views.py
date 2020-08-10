@@ -196,7 +196,7 @@ def kakao_callback(request):
     try:
         app_key = os.environ.get("KAKAO_KEY")
         code = request.GET.get("code")
-        redirect_uri = "https://mybnbbnb.herokuapp.com//users/login/kakao/callback"
+        redirect_uri = "https://mybnbbnb.herokuapp.com/users/login/kakao/callback"
         post_data = {
             "grant_type": "authorization_code",
             "client_id": app_key,
@@ -276,7 +276,7 @@ def google_callback(request):
         client_id = os.environ.get("GOOGLE_ID")
         client_secret = os.environ.get("GOOGLE_SECRET")
         code = request.GET.get("code")
-        redirect_uri = "https://mybnbbnb.herokuapp.com//users/login/google/callback"
+        redirect_uri = "https://mybnbbnb.herokuapp.com/users/login/google/callback"
         post_data = {
             "grant_type": "authorization_code",
             "client_id": client_id,
