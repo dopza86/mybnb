@@ -44,9 +44,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]  # 사용의 편의를 위해 장고 제공앱과 프로젝트 앱으로 나눠버림
 
-THIRD_PARTY_APPS = [
-    "django_countries",
-]
+THIRD_PARTY_APPS = ["django_countries", "django_seed", "storages"]
 
 PROJECT_APPS = [
     "core.apps.CoreConfig",
@@ -213,6 +211,13 @@ DATABASES['default'].update(db_from_env)
 #Sentry
 
 if not DEBUG:
+
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = "heroku-mybnbbnb"
+
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_URL"),
         integrations=[DjangoIntegration()],
