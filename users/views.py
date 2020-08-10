@@ -196,7 +196,7 @@ def kakao_callback(request):
     try:
         app_key = os.environ.get("KAKAO_KEY")
         code = request.GET.get("code")
-        redirect_uri = "https://mybnbbnb.herokuapp.com//users/login/kakao/callback"
+        redirect_uri = "https://mybnbbnb.herokuapp.com/users/login/kakao/callback"
         post_data = {
             "grant_type": "authorization_code",
             "client_id": app_key,
