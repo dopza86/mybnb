@@ -101,7 +101,7 @@ def complete_verification(request, key):
 
 def github_login(request):
     client_id = os.environ.get("GH_ID")
-    redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/github/callback"
+    redirect_uri = "https://mybnbbnb.herokuapp.com//users/login/github/callback"
     return redirect(
         f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=read:user"
     )
@@ -182,7 +182,7 @@ def github_callback(request):
 
 def kakao_login(request):
     app_key = os.environ.get("KAKAO_KEY")
-    redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/kakao/callback"
+    redirect_uri = "https://mybnbbnb.herokuapp.com//users/login/kakao/callback"
     return redirect(
         f"https://kauth.kakao.com/oauth/authorize?client_id={app_key}&redirect_uri={redirect_uri}&response_type=code"
     )
@@ -196,7 +196,7 @@ def kakao_callback(request):
     try:
         app_key = os.environ.get("KAKAO_KEY")
         code = request.GET.get("code")
-        redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/kakao/callback"
+        redirect_uri = "https://mybnbbnb.herokuapp.com//users/login/kakao/callback"
         post_data = {
             "grant_type": "authorization_code",
             "client_id": app_key,
@@ -261,7 +261,7 @@ def kakao_callback(request):
 
 def google_login(reguest):
     client_id = os.environ.get("GOOGLE_ID")
-    redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/google/callback"
+    redirect_uri = "https://mybnbbnb.herokuapp.com//users/login/google/callback"
     return redirect(
         f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline"
     )
@@ -276,7 +276,7 @@ def google_callback(request):
         client_id = os.environ.get("GOOGLE_ID")
         client_secret = os.environ.get("GOOGLE_SECRET")
         code = request.GET.get("code")
-        redirect_uri = "http://https://mybnbbnb.herokuapp.com//users/login/google/callback"
+        redirect_uri = "https://mybnbbnb.herokuapp.com//users/login/google/callback"
         post_data = {
             "grant_type": "authorization_code",
             "client_id": client_id,
