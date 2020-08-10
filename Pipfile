@@ -17,6 +17,7 @@ psycopg2-binary = "*"
 pipenv-to-requirements = "*"
 pillow = "*"
 gunicorn = "*"
+sentry-sdk = "*"
 
 [requires]
 python_version = "3.8"
