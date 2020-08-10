@@ -11,11 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 import dj_database_url
-
 from django.conf import settings
-
 from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,7 +25,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = os.environ.get("DJANGO_SECRET")
-SECRET_KEY = os.environ.get("DJANGO_SECRET", "NTfF6fEHnYx^P6@HJx@K6M")
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET", "YqTfR'V%m-s'%2L)]ff}aq#Z~&>4Djn22NV;%,3Mj<@qZ^yd%S")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DEBUG"))
@@ -209,3 +209,11 @@ LANGUAGES = [
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+#Sentry
+
+if not DEBUG:
+    sentry_sdk.init(
+        dsn=os.environ.get("SENTRY_URL"),
+        integrations=[DjangoIntegration()],
+    )
