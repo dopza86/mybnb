@@ -26,10 +26,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = os.environ.get("DJANGO_SECRET")
-SECRET_KEY = "YqTfR'V%m-s'%2L)]ff}aq#Z~&>4Djn22NV;%,3Mj<@qZ^yd%S"
+SECRET_KEY = os.environ.get("DJANGO_SECRET", "NTfF6fEHnYx^P6@HJx@K6M")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG"))
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -97,7 +97,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if DEBUG is False:
+if DEBUG:
 
     DATABASES = {
         "default": {
